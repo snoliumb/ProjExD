@@ -1,9 +1,10 @@
 import random
 import datetime
 from unittest import skip
-max_trials = 5
-piece_word = 10
-lack_word = 2
+max_trials = 5 #最大試行回数
+piece_word = 10 #対象文字数
+lack_word = 2 #欠損文字数
+
 def main():
     st = datetime.datetime.now()
     for i in range(max_trials):
