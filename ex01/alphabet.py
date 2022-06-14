@@ -6,9 +6,11 @@ piece_word = 10
 lack_word = 2
 def main():
     st = datetime.datetime.now()
-    for   in  range(max_trials):
+    for i in range(max_trials):
         seikai = shutudai()
-        #kaitou(seikai)
+        ans = kaitou(seikai)
+        if ans ==1:
+            break
     ed = datetime.datetime.now()
     print(f"所要時間:{(ed-st).seconds}")
 
