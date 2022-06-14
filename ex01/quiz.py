@@ -13,3 +13,6 @@ def kaitou(seikai):
         print("正解！")
     else:
         print("外れ")
+if __name__ == "__main__":
+    main()
+    
