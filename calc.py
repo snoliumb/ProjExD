@@ -4,7 +4,14 @@ def button_click(event):
     btn = event.widget
     num = btn["text"]
     #tkm.showinfo("", f"{num}のボタンがクリックされました。")
-    entry.insert(tk.END,num)
+    if num == "=":
+        a = entry.get()
+        b = eval(a)
+        entry.delete(0, tk.END)
+        entry.insert(0,b)
+    else:
+        entry.insert(tk.END,num)
+    
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("電卓")
