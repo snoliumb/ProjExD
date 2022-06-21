@@ -27,6 +27,12 @@ def button_click(event):
         c = b * b
         entry.delete(0, tk.END)
         entry.insert(0,c)
+    elif num == "√":
+        a = entry.get()
+        b = eval(a)
+        c = b ** (1/2)
+        entry.delete(0, tk.END)
+        entry.insert(0,c)
     else:
         entry.insert(tk.END,num)
     
@@ -164,6 +170,15 @@ if __name__ == "__main__":
                     font=("Times New Roman", 30)
                    ) 
     btn.grid(row=4, column=4)
+    btn.bind("<1>", button_click)
+    
+    btn = tk.Button(root,
+                    text="√",
+                    width=4,
+                    height=2,
+                    font=("Times New Roman", 30)
+                   ) 
+    btn.grid(row=5, column=4)
     btn.bind("<1>", button_click)
 
     entry = tk.Entry(width=30)
