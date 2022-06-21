@@ -23,6 +23,22 @@ if __name__ == "__main__":
             r += 1
             c = 0 
         btn.bind("<1>", button_click)
+    btn = tk.Button(root,
+                    text="+",
+                    width=4,
+                    height=2,
+                    font=("Times New Roman", 30)
+                   ) 
+    btn.grid(row=5, column=1)
+    btn.bind("<1>", button_click)
+    btn = tk.Button(root,
+                    text="=",
+                    width=4,
+                    height=2,
+                    font=("Times New Roman", 30)
+                   ) 
+    btn.grid(row=5, column=2)
+    btn.bind("<1>", button_click)
     entry = tk.Entry(width=30)
     entry.grid(columnspan=2, row=1, column = 1)
     root.mainloop()
