@@ -1,5 +1,11 @@
 import tkinter as tk
 import tkinter.messagebox as tkm
+
+def key_down(event):
+    global key
+    key = event_keysym
+    print(f"{key}が押されました。")
+    
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("迷えるこうかとん")
