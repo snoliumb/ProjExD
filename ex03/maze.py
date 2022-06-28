@@ -35,9 +35,13 @@ if __name__ == "__main__":
     canvas.pack()
     maze_bg = mm.make_maze(15, 9)
     mm.show_maze(canvas, maze_bg)
+    canvas.create_rectangle(100, 100, 200, 200, fill = "blue", tag= "rectangle")
+    canvas.create_rectangle(1300, 700, 1400, 800, fill = "Yellow", tag= "rectangle")
     tori = tk.PhotoImage(file = "fig/1.png")
     cx, cy = 150, 150
     mx, my = 1, 1
+    if cx == 1350 and cy == 750:
+        print("goal!!!")
     canvas.create_image(cx, cy, image=tori, tag="tori")
     key = " "
 
