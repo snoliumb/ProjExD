@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import random
+import tkinter as tk
 
 def main():
     clock = pg.time.Clock()
@@ -26,11 +27,19 @@ def main():
     bomb_rct.center = a, b
     vx, vy = 1, 1
 
+    en = pg.Surface((100,100))
+    image.set_colorkey(0, 0)
+    bomb2_rct = en.get_rect()
+    c = random.randint(300, 1300)
+    d = random.randint(300, 600)
+    bomb2_rct.center = c, d
+
     while True:
         screen_sfc.blit(being_sfc, being_rct)
         screen_sfc.blit(kkimg_sfc, kkimg_rct)
         bomb_rct.move_ip(vx, vy)
         screen_sfc.blit(image, bomb_rct)
+        screen_sfc.blit(en, bomb2_rct)
 
         for event in pg.event.get():
             if event.type == pg.QUIT: return
@@ -59,6 +68,8 @@ def main():
 
         if kkimg_rct.colliderect(bomb_rct):
             return
+        if kkimg_rct.colliderect(bomb2_rct):
+            return
 
             
         pg.display.update()
@@ -66,8 +77,9 @@ def main():
     
 def check_bound(rct, scr_rct):
     yoko, tate = +1, +1
+    i = 0
+    if rct.left < scr_rct.left or scr_rct.right  < rct.right : yoko = -1  
 
-    if rct.left < scr_rct.left or scr_rct.right  < rct.right  : yoko = -1  
     if rct.top < scr_rct.top   or scr_rct.bottom < rct.bottom : tate = -1
     return yoko, tate
     
