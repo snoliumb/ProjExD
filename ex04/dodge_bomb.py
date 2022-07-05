@@ -2,6 +2,9 @@ import pygame as pg
 import sys
 import random
 import tkinter as tk
+import tkinter.messagebox as tkm
+def crash():
+    tkm.showerror("Game Over")
 
 def main():
     clock = pg.time.Clock()
@@ -67,9 +70,12 @@ def main():
         vy *= tate
 
         if kkimg_rct.colliderect(bomb_rct):
+            crash()
             return
         if kkimg_rct.colliderect(bomb2_rct):
+            crash()
             return
+
 
             
         pg.display.update()
