@@ -59,19 +59,27 @@ class Bomb:
         self.rct.centerx = random.randint(0, scr.rct.width)
         self.rct.centery = random.randint(0, scr.rct.height)
         self.vx, self.vy = vxy # 練習6
+        self.hyoji = True
 
     def blit(self, scr: Screen):
         scr.sfc.blit(self.sfc, self.rct)
-
+ 
     def update(self, scr: Screen):
-        # 練習6
-        self.rct.move_ip(self.vx, self.vy)
-        # 練習7
-        yoko, tate = check_bound(self.rct, scr.rct)
-        self.vx *= yoko
-        self.vy *= tate   
-        # 練習5
-        self.blit(scr)   
+        if self.hyoji == True:
+            # 練習6
+            self.rct.move_ip(self.vx, self.vy)
+            # 練習7
+            yoko, tate = check_bound(self.rct, scr.rct)
+            self.vx *= yoko
+            self.vy *= tate   
+            # 練習5
+            self.blit(scr)
+        else:
+            self.rct.move_ip(+1000, 0)
+        
+
+
+
 
 class Shot:
     def __init__(self, chr: Bird):
@@ -95,7 +103,7 @@ def main():
     clock = pg.time.Clock()
     scr = Screen("逃げろ！こうかとん", (1600, 900), "fig/pg_bg.jpg")
     kkt = Bird("fig/6.png", 2.0, (900, 400))
-    bkd = Bomb((255,0,0), 10, (+1,+1), scr)
+    bkds = [Bomb((255,0,0), 10, (+1,+1), scr) for i in range(5)]
     beam = None
     
     while True:
@@ -109,12 +117,16 @@ def main():
                 beam = kkt.attack()
 
         kkt.update(scr)
-        bkd.update(scr)
-        if beam:
-            beam.blit(scr)
-            beam.update(scr)
-        if kkt.rct.colliderect(bkd.rct):
-            return
+        for bkd in bkds: 
+            bkd.update(scr)
+            if beam:
+                beam.blit(scr)
+                if beam.rct.colliderect(bkd.rct):
+                    bkd.hyoji = False
+                beam.update(scr)
+            if bkd:
+                if kkt.rct.colliderect(bkd.rct):
+                    return
 
         pg.display.update()
         clock.tick(1000)
