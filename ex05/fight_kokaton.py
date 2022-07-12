@@ -3,7 +3,7 @@ import sys
 import random
 
 
-class Screen:
+class Screen: #背景
     def __init__(self, title, wh, image):
         pg.display.set_caption(title)
         self.sfc = pg.display.set_mode(wh)
@@ -15,7 +15,7 @@ class Screen:
         self.sfc.blit(self.bgi_sfc, self.bgi_rct)
 
 
-class Bird:
+class Bird: #こうかとん
     def __init__(self, image: str, size: float, xy):
         self.sfc = pg.image.load(image)    # Surface
         self.sfc = pg.transform.rotozoom(self.sfc, 0, size)  # Surface
@@ -50,7 +50,7 @@ class Bird:
         return Shot(self)
         
 
-class Bomb:
+class Bomb: #爆弾
     def __init__(self, color, size, vxy, scr: Screen):
         self.sfc = pg.Surface((2*size, 2*size)) # Surface
         self.sfc.set_colorkey((0, 0, 0)) 
@@ -59,13 +59,13 @@ class Bomb:
         self.rct.centerx = random.randint(0, scr.rct.width)
         self.rct.centery = random.randint(0, scr.rct.height)
         self.vx, self.vy = vxy # 練習6
-        self.hyoji = True
+        self.hyoji = True #表示処理
 
     def blit(self, scr: Screen):
         scr.sfc.blit(self.sfc, self.rct)
  
     def update(self, scr: Screen):
-        if self.hyoji == True:
+        if self.hyoji == True: #ビームとの接触前
             # 練習6
             self.rct.move_ip(self.vx, self.vy)
             # 練習7
@@ -74,14 +74,14 @@ class Bomb:
             self.vy *= tate   
             # 練習5
             self.blit(scr)
-        else:
+        else: #接触後
             self.rct.move_ip(+1000, 0)
         
 
 
 
 
-class Shot:
+class Shot: #ビーム
     def __init__(self, chr: Bird):
         self.sfc = pg.image.load("fig/beam.png")
         self.sfc = pg.transform.rotozoom(self.sfc, 0, 0.1)
@@ -99,11 +99,13 @@ class Shot:
         self.blit(scr)
 
 
+
+
 def main():
     clock = pg.time.Clock()
-    scr = Screen("逃げろ！こうかとん", (1600, 900), "fig/pg_bg.jpg")
+    scr = Screen("戦え！こうかとん", (1600, 900), "fig/pg_bg.jpg")
     kkt = Bird("fig/6.png", 2.0, (900, 400))
-    bkds = [Bomb((255,0,0), 10, (+1,+1), scr) for i in range(5)]
+    bkds = [Bomb((255,0,0), 10, (+1,+1), scr) for i in range(5)] #内包文の爆弾生成
     beam = None
     
     while True:
@@ -121,11 +123,11 @@ def main():
             bkd.update(scr)
             if beam:
                 beam.blit(scr)
-                if beam.rct.colliderect(bkd.rct):
+                if beam.rct.colliderect(bkd.rct): #ビームと爆弾の接触処理
                     bkd.hyoji = False
                 beam.update(scr)
             if bkd:
-                if kkt.rct.colliderect(bkd.rct):
+                if kkt.rct.colliderect(bkd.rct): #こうかとんと爆弾の接触処理
                     return
 
         pg.display.update()
