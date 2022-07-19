@@ -365,7 +365,9 @@ class Breakout:
 
             # ballとself.paddleとの当たり判定
             if ball.getCollisionCoords(self.paddle) is not None:
-
+                mixer.init()
+                mixer.music.load("ビシッとツッコミ3.mp3")
+                mixer.music.play(1)
                 # 当たってたらballを反射
                 ball.reflect(self.paddle)
 
