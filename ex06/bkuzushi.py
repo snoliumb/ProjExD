@@ -371,8 +371,10 @@ class Breakout:
 
     def result(self):
         '''ゲームの結果を表示する'''
-
+        mixer.init()
         if len(self.blocks) == 0:
+            mixer.music.load("レベルアップ.mp3")
+            mixer.music.play(1)
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
                 text="GAME CLEAR",
@@ -383,6 +385,8 @@ class Breakout:
             self.is_playing = False
 
         if len(self.balls) == 0:
+            mixer.music.load("呪いの旋律.mp3")
+            mixer.music.play(1)
             self.canvas.create_text(
                 self.width // 2, self.height // 2,
                 text="GAME OVER",
